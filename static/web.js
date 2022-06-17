@@ -1,16 +1,11 @@
 const url_input = document.getElementById("link");
 const summarize_button = document.getElementById("my_button");
 const percent_dropdown = document.getElementById('range_size');
-
-
 const youtube_div = document.getElementById("youtube");
 const text_out_main_div = document.getElementById("text_out_main");
 
-
 // Button Click Listener for InitializeSummary() Function
 summarize_button.addEventListener("click", initializeSummary);
-
-
 percent_dropdown.addEventListener("change", buttonUpdate);
 url_input.addEventListener("input", buttonUpdate);
 
@@ -61,8 +56,6 @@ function initializeSummary() {
                             "<br>The processed summary has <b>" + response_json.length_summary + "</b> characters in <b>" + response_json.sentence_summary + "</b> sentences." +
                             "</br><br>";
 
-                        
-                        
                         // Text Beautification: Aligning Text to be justified
                         text_out_content_element.style.textAlign = "justify";
                         text_out_content_element.style.textJustify = "inter-word";
