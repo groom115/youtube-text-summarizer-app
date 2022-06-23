@@ -82,7 +82,7 @@ def create_app():
                             # Summarizing Formatted Text based upon the request's choice
                            
 
-                                summary = nltk_summarize(formatted_text,
+                                summary = Extractive(formatted_text,
                                                                    percent)  # Sumy for Text Rank Based Summary.
                             else:
                                 summary = None
