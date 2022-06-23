@@ -21,6 +21,11 @@ from sumy.utils import get_stop_words
 from string import punctuation
 from heapq import nlargest
 
+from transformers import BartForConditionalGeneration, BartTokenizer, BartConfig
+tokenizer=BartTokenizer.from_pretrained('facebook/bart-large-cnn')
+model=BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
+
+
 
 def gensim_summarize(text_content, percent):
     # TextRank Summarization using Gensim Library.
@@ -111,7 +116,7 @@ def spacy_summarize(text_content, percent):
 
 
 
-def nltk_summarize(text_content, percent):
+def extractive(text_content, percent):
     # Frequency Based Summarization using NLTK
     # Store a tokenized copy of text, using NLTK's recommended word tokenizer
     tokens = word_tokenize(text_content)
@@ -168,7 +173,13 @@ def nltk_summarize(text_content, percent):
     # Returning NLTK Summarization Output
     return summary
 
-
+def abstractive(text,percent):
+  #text=get_transcript(url)
+  original_text=clean_body(text)
+  inputs = tokenizer.batch_encode_plus([original_text],return_tensors='pt')
+  summary_ids = model.generate(inputs['input_ids'], early_stopping=True)
+  summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+  return summary
 
 
 
