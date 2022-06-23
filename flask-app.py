@@ -48,13 +48,12 @@ def create_app():
         nltk.download("stopwords", quiet=True)
 
     # Processing Function for below route.
-    @app.route('/summarize/', methods=['GET'])
+    @app.route('/summarize/', methods=['GET','POST'])
     def transcript_fetched_query():
         # Getting argument from the request
-        video_id = request.args.get('id')  # video_id of the YouTube Video
-        percent = request.args.get('percent')  # percentage of the summary
-        choice = request.args.get('choice')  # summarization choice
-
+        video_id = request.args.get_json('id')  # video_id of the YouTube Video
+        percent = request.args.get_json('percent')  # percentage of the summary
+      
         # Checking whether all parameters exist or not
         if video_id and percent and choice:
             # Every parameter exists here: checking validity of choice
