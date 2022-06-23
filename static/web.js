@@ -36,13 +36,20 @@ function initializeSummary() {
             // Making Selection Div invisible, and text output as visible.
             youtube_div.style.display = "none";
             text_out_main_div.style.display = "block";
+             var server_data = [
+                {"video_id": video_id},
+                {"percent": percent},
+            ];
 
-            // https://ytsum.herokuapp.com
-            // http://127.0.0.1:5000
             // Fetch request to our server. (GET request with arguments received from popup.html
-            fetch("https://ytsum.herokuapp.com/summarize/?id=" + video_id +
-                    "&percent=" + percent )
-                .then(response => response.json()).then(result => {
+            fetch($.ajax({
+                type: "POST",
+                url: "'/summarize/'",
+                 data: JSON.stringify(server_data),
+              contentType: "application/json",
+               dataType: 'json' 
+               });
+                ).then(response => response.json()).then(result => {
                     // Result now contains the response in JSON
                     // Sending result back to popup.html
                     process_element.innerHTML = result.message;
